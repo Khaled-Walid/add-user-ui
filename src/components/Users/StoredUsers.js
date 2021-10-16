@@ -5,7 +5,7 @@ import classes from "./StoredUsers.module.css";
 function StoredUsers(props) {
   const usersList = props.users.map((entry) => {
     return (
-      <li>
+      <li key={entry.id}>
         {entry.name}, {entry.age} years old
       </li>
     );
