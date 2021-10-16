@@ -32,15 +32,24 @@ function AddNewUser(props) {
       });
       return;
     }
-
     const entry = { id: Math.random().toString(), name: username, age: age };
     props.onAdd(entry);
     setUserName("");
     setAge("");
   }
+
+  function errorHandler() {
+    setError(null);
+  }
   return (
     <>
-      {error && <ErrorModal title={error.title} message={error.message}></ErrorModal>}
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirmError={errorHandler}
+        ></ErrorModal>
+      )}
 
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
