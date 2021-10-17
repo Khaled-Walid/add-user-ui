@@ -8,10 +8,10 @@ function App() {
     setSubmittedData((prev) => [...prev, entry]);
   }
   return (
-    <div>
+    <>
       <AddNewUser onAdd={updateSubmittedDataHandler}></AddNewUser>
       <StoredUsers users={submittedData}></StoredUsers>
-    </div>
+    </>
   );
 }
 
