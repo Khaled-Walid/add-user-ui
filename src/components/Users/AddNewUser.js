@@ -1,23 +1,29 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Card from "../UI/Card";
 import classes from "./AddNewUser.module.css";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
 
 function AddNewUser(props) {
-  const [username, setUserName] = useState("");
-  const [age, setAge] = useState("");
+  const nameRef = useRef();
+  const ageRef = useRef();
+
+  // const [username, setUserName] = useState("");
+  // const [age, setAge] = useState("");
   const [error, setError] = useState();
 
-  function usernameChangeHandler(event) {
-    setUserName(event.target.value);
-  }
-  function ageChangeHandler(event) {
-    setAge(event.target.value);
-  }
+  // function usernameChangeHandler(event) {
+  //   setUserName(event.target.value);
+  // }
+  // function ageChangeHandler(event) {
+  //   setAge(event.target.value);
+  // }
 
   function addUserHandler(event) {
     event.preventDefault();
+    const username = nameRef.current.value;
+    const age = ageRef.current.value;
+
     if (username.trim().length === 0 || age.trim().length === 0) {
       setError({
         title: "Invalid input",
@@ -34,8 +40,10 @@ function AddNewUser(props) {
     }
     const entry = { id: Math.random().toString(), name: username, age: age };
     props.onAdd(entry);
-    setUserName("");
-    setAge("");
+    // setUserName("");
+    // setAge("");
+    nameRef.current.value = "";
+    ageRef.current.value = "";
   }
 
   function errorHandler() {
@@ -57,15 +65,17 @@ function AddNewUser(props) {
           <input
             id="username"
             type="text"
-            onChange={usernameChangeHandler}
-            value={username}
+            // onChange={usernameChangeHandler}
+            // value={username}
+            ref={nameRef}
           />
           <label htmlFor="age">Age</label>
           <input
             id="age"
             type="number"
-            onChange={ageChangeHandler}
-            value={age}
+            // onChange={ageChangeHandler}
+            // value={age}
+            ref={ageRef}
           />
           <Button type="submit">Add</Button>
         </form>
